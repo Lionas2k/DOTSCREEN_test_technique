@@ -29,7 +29,24 @@ function App() {
         initialBoard.push(row);
     }
     const [board,setBoard]=useState(initialBoard);
-
+    /*
+        Vérifie si il y a 4 alligné en horizontal, vertical, et diagonal
+        si c'est le cas, incremente de 1 le score du joueur gagnant et reinitialise le board
+     */
+    function handleWinning(col,row){
+        if(checkVertical(col)||checkHorizontal(row)||checkDiagonal(col,row)){
+            if(currentPlayer>0){
+                setRedScore(redScore+1);
+            }else{
+                setYellowScore(yellowScore+1);
+            }
+            setBoard(initialBoard);
+        }
+    }
+    /*
+    Rempli la première case non vide de la colonne en partant de la fin avec la couleur du joueur actif
+    ne rempli rien si toute la colonne est pleine
+    */
     function onColumnClick(colIndex){
         for (let j = board[0].length-1; j >= 0; j--) {
             if (!board[colIndex][j]) {
