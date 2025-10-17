@@ -40,6 +40,8 @@ html,body{
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex:1;
+  align-items: center;
 }
 .column{
   display: flex;
