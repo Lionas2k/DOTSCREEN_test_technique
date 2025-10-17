@@ -53,13 +53,37 @@ function App() {
         }
         return(count>=4);
     }
+    /*
+        Parcours la Ligne dans une direction jusqu'a tomber sur un pion d'une autre couleur OU un mur
+        Puis parcours dans l'autre direction suivant les même critères.
+        Renvoie true si il y a au moins 4 Pions de la même couleur alignée
 
+     */
+    function checkHorizontal(col,row){
+        let count = 0;
+        for(let i=col;(i>=0&&i<=6);i++){
+            if(board[i][row]===currentPlayer){
+                count +=1;
+            }else{
+                console.log(count);
+                break;
+            }
+        }
+        for(let i=col-1;(i>=0&&i<=6);i--){
+            if(board[i][row]===currentPlayer){
+                count +=1;
+            }else{
+                break;
+            }
+        }
+        return(count>=4);
+    }
     /*
         Vérifie si il y a 4 pions alligné en horizontal, vertical, et diagonal
         si c'est le cas, incremente de 1 le score du joueur gagnant et reinitialise le board
      */
     function handleWinning(col,row){
-        if(checkVertical(col)||checkHorizontal(row)||checkDiagonal(col,row)){
+        if(checkVertical(col,row)||checkHorizontal(col,row)){
             if(currentPlayer>0){
                 setRedScore(redScore+1);
             }else{
