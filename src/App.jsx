@@ -29,10 +29,20 @@ function App() {
         initialBoard.push(row);
     }
     const [board,setBoard]=useState(initialBoard);
+
+    function onColumnClick(colIndex){
+        for (let j = board[0].length-1; j >= 0; j--) {
+            if (!board[colIndex][j]) {
+                board[colIndex][j] = currentPlayer;
+                setCurrentPlayer(currentPlayer * (-1));
+                break;
+            }
+        }
+    }
   return (
     <>
         <Header currentPlayer={currentPlayer} scores={scores} />
-        <Board board={board}/>
+        <Board board={board} onColumnClick={onColumnClick}/>
     </>
   )
 }

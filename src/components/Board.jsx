@@ -1,13 +1,22 @@
 import {Cell} from "./Cell.jsx";
 
-export function Board({board}){
+export function Board({board,onColumnClick}){
     return(
         <>
             <div className={"board"}>
-                {board.map((column)=>{return(
-                    <div className="column">
+                {board.map((column, colIndex)=>{return(
+                    <div className="column" onClick={() => onColumnClick(colIndex)}>
                         {column.map((value)=> {
-                            return(<Cell value={value}/> )
+                            {
+                                switch (value) {
+                                    case 1:
+                                        return <Cell value={1} />
+                                    case -1:
+                                        return <Cell value={-1} />
+                                    default:
+                                        return <Cell />
+                                }
+                            }
                         })}
                     </div>
                 )
