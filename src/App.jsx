@@ -30,7 +30,32 @@ function App() {
     }
     const [board,setBoard]=useState(initialBoard);
     /*
-        Vérifie si il y a 4 alligné en horizontal, vertical, et diagonal
+        Parcours la colonne dans une direction jusqu'a tomber sur un pion d'une autre couleur OU un mur
+        Puis parcours dans l'autre direction suivant les même critères.
+        Renvoie true si il y a au moins 4 Pions de la même couleur alignée
+
+     */
+    function checkVertical(col){
+        let count = 0;
+        for(let i=row;(i>0&&i<5);i++){
+            if(board[col][i]===currentPlayer){
+                count +=1;
+            }else{
+                break;
+            }
+        }
+        for(let i=row;(i>0&&i<5);i--){
+            if(board[col][i]===currentPlayer){
+                count +=1;
+            }else{
+                break;
+            }
+        }
+        return(count>=4);
+    }
+
+    /*
+        Vérifie si il y a 4 pions alligné en horizontal, vertical, et diagonal
         si c'est le cas, incremente de 1 le score du joueur gagnant et reinitialise le board
      */
     function handleWinning(col,row){
@@ -51,6 +76,7 @@ function App() {
         for (let j = board[0].length-1; j >= 0; j--) {
             if (!board[colIndex][j]) {
                 board[colIndex][j] = currentPlayer;
+                handleWinning(colIndex,j);
                 setCurrentPlayer(currentPlayer * (-1));
                 break;
             }
