@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import {Header} from "./components/Header.jsx";
 import {Board} from "./components/Board.jsx";
+import {GameStatus} from "./components/GameStatus.jsx";
 
 function App() {
     /*
@@ -14,6 +15,7 @@ function App() {
     const [redScore,setRedScore]=useState(0);
     const [yellowScore,setYellowScore]=useState(0);
     const scores = [yellowScore,redScore];
+    const [gameState,setGameState]=useState(true);
     /*
     initialBoard represente le plateau de jeu vide.
     il est rempli de 0 ce qui correspond a une case vide.
@@ -158,7 +160,7 @@ function App() {
             }else{
                 setYellowScore(yellowScore+1);
             }
-            setBoard(initialBoard);
+            setGameState(false);
         }
     }
     /*
@@ -166,19 +168,26 @@ function App() {
     ne rempli rien si toute la colonne est pleine
     */
     function onColumnClick(colIndex){
-        for (let j = board[0].length-1; j >= 0; j--) {
-            if (!board[colIndex][j]) {
-                board[colIndex][j] = currentPlayer;
-                handleWinning(colIndex,j);
-                setCurrentPlayer(currentPlayer * (-1));
-                break;
+        if(gameState) {
+            for (let j = board[0].length - 1; j >= 0; j--) {
+                if (!board[colIndex][j]) {
+                    board[colIndex][j] = currentPlayer;
+                    handleWinning(colIndex, j);
+                    setCurrentPlayer(currentPlayer * (-1));
+                    break;
+                }
             }
         }
+    }
+    function onButtonClick(){
+        setBoard(initialBoard);
+        setGameState(true);
     }
   return (
     <>
         <Header currentPlayer={currentPlayer} scores={scores} />
         <Board board={board} onColumnClick={onColumnClick}/>
+        <GameStatus gameState={gameState} currentPlayer={currentPlayer} onButtonClick={onButtonClick}/>
     </>
   )
 }
