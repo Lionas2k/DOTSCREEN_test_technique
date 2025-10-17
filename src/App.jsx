@@ -179,6 +179,10 @@ function App() {
             }
         }
     }
+    /*
+        reinitialise le plateau de jeu
+        relance une nouvelle partie
+     */
     function onButtonClick(){
         setBoard(initialBoard);
         setGameState(true);
