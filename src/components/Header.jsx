@@ -10,7 +10,7 @@ export function Header({currentPlayer,scores}){
                 C'est au joueur {currentPlayer===1?'Rouge':'Jaune'} de jouer !
             </div>
             <div className={"scores"}>
-                Rouge {scores[0]} - {scores[1]} Jaune
+                Rouge {scores[1]} - {scores[0]} Jaune
             </div>
         </div>
     )
