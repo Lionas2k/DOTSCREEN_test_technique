@@ -35,16 +35,16 @@ function App() {
         Renvoie true si il y a au moins 4 Pions de la même couleur alignée
 
      */
-    function checkVertical(col){
+    function checkVertical(col,row){
         let count = 0;
-        for(let i=row;(i>0&&i<5);i++){
+        for(let i=row+1;(i>=0&&i<=5);i++){
             if(board[col][i]===currentPlayer){
                 count +=1;
             }else{
                 break;
             }
         }
-        for(let i=row;(i>0&&i<5);i--){
+        for(let i=row;(i>=0&&i<=5);i--){
             if(board[col][i]===currentPlayer){
                 count +=1;
             }else{
