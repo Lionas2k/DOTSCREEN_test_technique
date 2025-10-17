@@ -79,11 +79,80 @@ function App() {
         return(count>=4);
     }
     /*
+        Parcours la Diagonale dans une direction jusqu'a tomber sur un pion d'une autre couleur OU un mur
+        Puis parcours dans l'autre direction suivant les même critères.
+        Renvoie true si il y a au moins 4 Pions de la même couleur alignée
+     */
+    function checkDiag1(col,row){
+        let count = 0;
+        let run =true;
+        let i = col;
+        let j = row;
+        while((i>=0&&i<=6)&&(j>=0&&j<=5)&&run){
+            if(board[i][j]===currentPlayer){
+                count+=1;
+            }else{
+                run = false;
+            }
+            i +=1;
+            j +=1;
+        }
+        i= col-1;
+        j=row-1;
+        run =true;
+        while((i>=0&&i<=6)&&(j>=0&&j<=5)&&run){
+            if(board[i][j]===currentPlayer){
+                count+=1;
+            }else{
+                run = false;
+            }
+            i -=1;
+            j -=1;
+        }
+        return (count>=4);
+    }
+    /*
+        Parcours la Diagonale dans une direction jusqu'a tomber sur un pion d'une autre couleur OU un mur
+        Puis parcours dans l'autre direction suivant les même critères.
+        Renvoie true si il y a au moins 4 Pions de la même couleur alignée
+     */
+    function checkDiag2(col,row){
+        let count = 0;
+        let run =true;
+        let i = col;
+        let j = row;
+        while((i>=0&&i<=6)&&(j>=0&&j<=5)&&run){
+            if(board[i][j]===currentPlayer){
+                count+=1;
+            }else{
+                run = false;
+            }
+            i +=1;
+            j -=1;
+        }
+        i= col-1;
+        j=row+1;
+        run =true;
+        while((i>=0&&i<=6)&&(j>=0&&j<=5)&&run){
+            if(board[i][j]===currentPlayer){
+                count+=1;
+            }else{
+                run = false;
+            }
+            i -=1;
+            j +=1;
+        }
+        return (count>=4)
+    }
+    function checkDiagonals(col,row){
+        return (checkDiag1(col,row)||checkDiag2(col,row));
+    }
+    /*
         Vérifie si il y a 4 pions alligné en horizontal, vertical, et diagonal
         si c'est le cas, incremente de 1 le score du joueur gagnant et reinitialise le board
      */
     function handleWinning(col,row){
-        if(checkVertical(col,row)||checkHorizontal(col,row)){
+        if(checkVertical(col,row)||checkHorizontal(col,row)||checkDiagonals(col,row)){
             if(currentPlayer>0){
                 setRedScore(redScore+1);
             }else{
