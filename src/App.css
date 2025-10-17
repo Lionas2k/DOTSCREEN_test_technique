@@ -40,3 +40,25 @@
 .read-the-docs {
   color: #888;
 }
+.cell{
+  width: 60px;
+  height: 60px;
+  background-color: #003366;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.circle{
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+}
+.board{
+  display: flex;
+  flex-direction: row;
+}
+.column{
+  display: flex;
+  flex-direction: column;
+}
